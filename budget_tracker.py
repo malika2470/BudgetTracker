@@ -1,14 +1,45 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from inquirer import prompt
 
 def add_income(income_data):
-    income = float(input("Enter income amount: "))
-    category = input("Enter income category: ")
+    questions = [
+        {
+            'type': 'input',
+            'name': 'income',
+            'message': 'Enter income amount:',
+            'validate': lambda val: val.replace('.', '', 1).isdigit()  # Validate if input is a positive number
+        },
+        {
+            'type': 'input',
+            'name': 'category',
+            'message': 'Enter income category:',
+        }
+    ]
+
+    answers = prompt(questions)
+    income = float(answers['income'])
+    category = answers['category']
     income_data.append({"Category": category, "Amount": income})
 
 def add_expense(expense_data):
-    expense = float(input("Enter expense amount: "))
-    category = input("Enter expense category: ")
+    questions = [
+        {
+            'type': 'input',
+            'name': 'expense',
+            'message': 'Enter expense amount:',
+            'validate': lambda val: val.replace('.', '', 1).isdigit()  # Validate if input is a positive number
+        },
+        {
+            'type': 'input',
+            'name': 'category',
+            'message': 'Enter expense category:',
+        }
+    ]
+
+    answers = prompt(questions)
+    expense = float(answers['expense'])
+    category = answers['category']
     expense_data.append({"Category": category, "Amount": expense})
 
 def generate_report(income_data, expense_data):
